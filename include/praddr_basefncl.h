@@ -31,11 +31,25 @@ namespace praddr
     //           typename = std::enable_if_t < std::is_same < Tpl<class... args>, std::tuple<class... args> >::value >> 
     //           int print_ip(TypeTuple tpl);
 
-    template <class... Tpl>
+    
+    
+    template <class... Tpl
+               // typename = std::enable_if_t< sizeof...(Tpl) >::value
+                >
     int print_ip(std::tuple<Tpl...> tpl);
 
-    template <class... Tpl>
-    constexpr int unfold(std::tuple<Tpl...> tpl, const size_t it, const size_t max_it);
+    template <class T1,
+                class T2,
+                // typename = std::enable_if_t<std::is_same<T1,T2>>::value,
+                class... Tpl
+                 >
+    constexpr int unfold(std::tuple<T1, T2, Tpl...> tpl, const size_t it, const size_t max_it);
+
+    // template <>
+    // int print_ip(std::tuple<> tpl);
+
+    // template <class... Tpl>
+    // constexpr int unfold(std::tuple<Tpl...> tpl, const size_t it, const size_t max_it);
 
 } // namespace praddr
 

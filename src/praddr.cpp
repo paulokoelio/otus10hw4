@@ -32,15 +32,16 @@ int main(int argc, char const *argv[])
         std::vector<int> vec = {1,2,3,4,5};
         std::list<int> lst (4,1001);
         auto tpl1 = std::make_tuple("tuple-1-member");
-        // auto tpl3 = std::make_tuple(17,18,19);
+        auto tpl2 = std::make_tuple();
         auto tpl3 = std::make_tuple("tuple1","tuple2","tuple3");
         
         print_ip(vec);
         print_ip(lst);
-        print_ip(tpl1);
+        // print_ip(tpl1);
+        UNUSED(tpl1);
         print_ip(tpl3);
-        // UNUSED(tpl3);
-        // UNUSED(vec);
+        // print_ip(tpl2);
+        UNUSED(tpl2);
         // UNUSED(lst);
 
 
