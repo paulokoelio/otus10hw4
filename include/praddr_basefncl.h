@@ -16,15 +16,20 @@ namespace praddr
         typename = std::enable_if_t<std::is_integral<TypeInt>::value>>
     int print_ip(TypeInt indata);
 
-    template <typename TypeStr,
-              typename = std::enable_if_t<std::is_same<TypeStr, std::string>::value>>
-    int print_ip(const TypeStr &indata);
+    // template <typename TypeStr,
+    //           typename = std::enable_if_t<std::is_same<TypeStr, std::string>::value>>
+    // int print_ip(const TypeStr &indata);
 
     template <
         template <class, class> class Vec,
         class Tvec,
         class Alloc>
     int print_ip(const Vec<Tvec, Alloc> &indata);
+
+    template <
+        class Tvec,
+        class Alloc >
+    int print_ip(const std::basic_string<Tvec, Alloc> &indata);
     
     // template <
     //     template <class...> class Tpl,

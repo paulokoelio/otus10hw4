@@ -4,7 +4,9 @@
 
 #include <iostream>
 #include <string>
-
+#include <list>
+#include <vector>
+#include <functional>
 
 namespace praddr
 {
@@ -23,7 +25,7 @@ namespace praddr
         for (size_t it = 1; it < size; ++it)
             res = std::to_string(static_cast<const int>(pbyte[it])) + del + res;
 
-        res = std::move(res); // делаем std::move чтобы избежать создания новой строки при возврате
+        std::move(res); // делаем std::move чтобы избежать создания новой строки при возврате
         return res;
     }
 
@@ -40,13 +42,28 @@ namespace praddr
         return 0;
     }
 
-    template <typename TypeStr,
-              typename = std::enable_if_t<std::is_same<TypeStr, std::string>::value>>
-    int print_ip(const TypeStr &indata)
+    // template <typename TypeStr,
+    //           typename = std::enable_if_t<std::is_same<TypeStr, std::string>::value>>
+    // int print_ip(const TypeStr &indata)
+    // {
+    //     std::cout << indata.c_str() << std::endl;
+    //     return 0;
+    // }
+
+    // EXPERIMENTAL
+
+    template <template <class, class...> class Vec,
+              class Tvec,
+              typename = std::enable_if<
+              std::is_same<Vec<Tvec>, std::vector<Tvec>>::value 
+                          || std::is_same<Vec<Tvec>, std::list<Tvec>>::value, int
+              >>
+    struct is_vect
     {
-        std::cout << indata.c_str() << std::endl;
-        return 0;
-    }
+        typedef Vec<Tvec> type;
+    };
+
+    // END OF EXPERIMENTAL
 
     template <
         template <class, class> class Vec,
@@ -76,6 +93,15 @@ namespace praddr
             iter++;
         }
         std::cout << std::endl;
+        return 0;
+    }
+
+    template <
+        class Tvec,
+        class Alloc>
+    int print_ip(const std::basic_string<Tvec, Alloc> &indata)
+    {
+        std::cout << indata.c_str() << std::endl;
         return 0;
     }
 
@@ -122,7 +148,8 @@ namespace praddr
 
         // std::cout << std::get<it-1>(tpl) << " . " ;
         // std::cout << "." << std::get<it-1>(tpl) << std::endl;
-        std::cout << "." << "==== substitution for tuple element ====" << std::endl;
+        std::cout << "."
+                  << "==== substitution for tuple element ====" << std::endl;
         UNUSED(tpl);
         UNUSED(it);
         UNUSED(max_it);

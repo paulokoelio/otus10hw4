@@ -43,7 +43,10 @@ int main(int argc, char const *argv[])
         // print_ip(tpl2);
         UNUSED(tpl2);
         // UNUSED(lst);
-
+        // template <class...>
+        // using vec = std::vector<int, class...>;
+        // is_accepted<true, vec> trst;
+        // trst.test();
 
     }
     catch (const std::exception &e)
