@@ -29,6 +29,42 @@ namespace praddr
         return res;
     }
 
+    template <class T1, class... Tnext>
+    void pr(T1 t1, Tnext... arg)
+    {
+        std::cout << t1 << '.';
+        pr(arg...);
+    }
+
+    template <class T1>
+    void pr(T1 t1)
+    {
+        std::cout << t1 << '\n';
+    }
+
+    template <
+        template <class...> class V,
+        typename T,
+        typename... Tnext>
+    void pr(V<T, Tnext...> vec)
+    {
+        if (vec.empty())
+        {
+            std::cout << std::endl;
+            return;
+        }
+        
+        auto iter = vec.cbegin();
+        std::cout << *iter;
+        iter++;
+        while (iter != vec.cend())
+        {
+            std::cout << "." << *iter;
+            iter++;
+        }
+        std::cout << std::endl;
+    }
+
     template <
         typename TypeInt,
         typename = std::enable_if_t<std::is_integral<TypeInt>::value>>
@@ -50,51 +86,56 @@ namespace praddr
     //     return 0;
     // }
 
-    // EXPERIMENTAL
-
-    template <template <class, class...> class Vec,
-              class Tvec,
-              typename = std::enable_if<
-              std::is_same<Vec<Tvec>, std::vector<Tvec>>::value 
-                          || std::is_same<Vec<Tvec>, std::list<Tvec>>::value, int
-              >>
-    struct is_vect
-    {
-        typedef Vec<Tvec> type;
-    };
-
-    // END OF EXPERIMENTAL
-
     template <
-        template <class, class> class Vec,
-        class Tvec,
-        class Alloc>
-    int print_ip(const Vec<Tvec, Alloc> &indata)
+        template <class...> class Vec,
+        class... Other
+        >
+    int print_ip(const Vec<Other...> &indata)
     {
-        static_assert(&Vec<Tvec, Alloc>::empty,
-                      "No function empty() exist for template of used type");
+        
+        prns();
+        UNUSED(indata);
 
-        if (indata.empty())
-        {
-            std::cout << std::endl;
-            return 0;
-        }
-
-        static_assert(&Vec<Tvec, Alloc>::cbegin,
-                      "No function cbegin() exist for template of used type");
-        static_assert(&Vec<Tvec, Alloc>::cend,
-                      "No function cend() exist for template of used type");
-        auto iter = indata.cbegin();
-        std::cout << *iter;
-        iter++;
-        while (iter != indata.cend())
-        {
-            std::cout << "." << *iter;
-            iter++;
-        }
-        std::cout << std::endl;
         return 0;
     }
+
+    // template <
+    //     template <class, class...> class Vec,
+    //     class Tvec,
+    //     class... Other,
+    //     std::enable_if_t< 
+    //     ! (std::is_same< Vec<Tvec>, std::vector<Tvec>>::value 
+    //     || std::is_same< Vec<Tvec>, std::list<Tvec>>::value), 
+    //     int > =0
+    //     >
+    // int print_ip(const Vec<Tvec, Other...> &indata)
+    // {
+        
+    //     prns();
+    //     UNUSED(indata);
+
+    //     return 0;
+    // }
+
+    
+
+    template <
+        template <class, class...> class Vec,
+        class Tvec,
+        class... Other,
+        std::enable_if_t< 
+        (std::is_same< Vec<Tvec>, std::vector<Tvec>>::value 
+        || std::is_same< Vec<Tvec>, std::list<Tvec>>::value), 
+        int > =0
+        >
+    int print_ip(const Vec<Tvec, Other...> &indata)
+    {
+        
+        pr(indata);
+
+        return 0;
+    }
+
 
     template <
         class Tvec,

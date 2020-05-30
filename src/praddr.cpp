@@ -13,6 +13,26 @@
 #include <list>
 #include <tuple>
 
+// -------for tests only-----------
+template <class Vec, class Tvec, class... Args>
+struct notvector
+{
+    Vec mainobj{0};
+    Tvec index{0};
+};
+
+template <class Vec, class... Args>
+struct notvector2
+{
+    Vec mainobj{0};
+};
+
+    notvector<int, int> x;
+    notvector<float, float> z2;
+    notvector<double, double, double> z3;
+    notvector2<int> z1;
+// -------END for tests only-----------
+
 using namespace praddr;
 
 int main(int argc, char const *argv[])
@@ -32,7 +52,7 @@ int main(int argc, char const *argv[])
         std::vector<int> vec = {1,2,3,4,5};
         std::list<int> lst (4,1001);
         auto tpl1 = std::make_tuple("tuple-1-member");
-        auto tpl2 = std::make_tuple();
+        auto tpl0 = std::make_tuple();
         auto tpl3 = std::make_tuple("tuple1","tuple2","tuple3");
         
         print_ip(vec);
@@ -40,13 +60,19 @@ int main(int argc, char const *argv[])
         // print_ip(tpl1);
         UNUSED(tpl1);
         print_ip(tpl3);
+        print_ip(z1);
+        print_ip(z2);
+        print_ip(z3);
+        pr(9, 8, 7, 6, 5);
         // print_ip(tpl2);
-        UNUSED(tpl2);
+        UNUSED(tpl0);
         // UNUSED(lst);
         // template <class...>
         // using vec = std::vector<int, class...>;
         // is_accepted<true, vec> trst;
         // trst.test();
+
+
 
     }
     catch (const std::exception &e)
