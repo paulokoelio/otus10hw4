@@ -7,7 +7,6 @@
 #include <tuple>
 
 #include "version.h"
-#include "praddr.h"
 #include "praddr_basefncl.h"
 #include "mylib_print_tuple.h"
 
@@ -24,15 +23,15 @@ int main(int argc, char const *argv[])
         print_ip(char(-1));
         print_ip(short(0));
         print_ip(int(2130706433));
-        print_ip( 8875824491850138409 );
+        print_ip(8875824491850138409);
         print_ip(std::string("trololo"));
-        std::vector<int> vec = {1,2,3,4,5};
+        std::vector<int> vec = {1, 2, 3, 4, 5};
         print_ip(vec);
-        std::list<int> lst (4,1001);
+        std::list<int> lst(4, 1001);
         print_ip(lst);
         auto tpl0 = std::make_tuple();
         auto tpl1 = std::make_tuple("tuple-1-member");
-        auto tpl3 = std::make_tuple("tuple1","tuple2","tuple3");
+        auto tpl3 = std::make_tuple("tuple1", "tuple2", "tuple3");
         auto t1 = std::make_tuple("hello", 42, 3.14);
         auto t2 = std::make_tuple(10, 42, 3, 14);
         auto t3 = std::make_tuple(10, 42, 3.14, 8);

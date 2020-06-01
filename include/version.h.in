@@ -4,5 +4,5 @@
 
 namespace praddr
 {
-const char * version();
+    const char *version();
 }

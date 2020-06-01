@@ -17,7 +17,6 @@ namespace praddr
         size_t size = sizeof(data);
         std::string del(1, ip_delimiter);
         // разбиение data на байты используя разделитель (delimiter)
-
         const Type *pdata = &data;
         const unsigned char *pbyte = reinterpret_cast<const unsigned char *>(pdata);
         std::string res{std::to_string(static_cast<const int>(*pbyte))};
@@ -29,12 +28,12 @@ namespace praddr
         return res;
     }
 
-    template <class T1, class... Tnext>
-    void pr(T1 t1, Tnext... arg)
-    {
-        std::cout << t1 << '.';
-        pr(arg...);
-    }
+    // template <class T1, class... Tnext>
+    // void pr(T1 t1, Tnext... arg)        // эта форма функции для данного ДЗ не используется
+    // {
+    //     std::cout << t1 << ip_delimiter;
+    //     pr(arg...);
+    // }
 
     template <class T1>
     void pr(T1 t1)
@@ -53,13 +52,13 @@ namespace praddr
             std::cout << std::endl;
             return;
         }
-        
+
         auto iter = vec.cbegin();
         std::cout << *iter;
         iter++;
         while (iter != vec.cend())
         {
-            std::cout << "." << *iter;
+            std::cout << ip_delimiter << *iter;
             iter++;
         }
         std::cout << std::endl;
@@ -77,17 +76,14 @@ namespace praddr
             std::cout << divide(data).c_str() << std::endl;
         return 0;
     }
-   
+
     template <
         template <class...> class Vec,
-        class... Other
-        >
+        class... Other>
     int print_ip(const Vec<Other...> &indata)
     {
-        
         prns();
         UNUSED(indata);
-
         return 0;
     }
 
@@ -95,19 +91,15 @@ namespace praddr
         template <class, class...> class Vec,
         class Tvec,
         class... Other,
-        std::enable_if_t< 
-        (std::is_same< Vec<Tvec>, std::vector<Tvec>>::value 
-        || std::is_same< Vec<Tvec>, std::list<Tvec>>::value), 
-        int > =0
-        >
+        std::enable_if_t<
+            (std::is_same<Vec<Tvec>, std::vector<Tvec>>::value 
+            || std::is_same<Vec<Tvec>, std::list<Tvec>>::value),
+            int> = 0>
     int print_ip(const Vec<Tvec, Other...> &indata)
     {
-        
         pr(indata);
-
         return 0;
     }
-
 
     template <
         class Tvec,
@@ -117,8 +109,6 @@ namespace praddr
         std::cout << indata.c_str() << std::endl;
         return 0;
     }
-    
-
 
 } // namespace praddr
 

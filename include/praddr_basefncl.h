@@ -18,40 +18,28 @@ namespace praddr
         typename TypeInt,
         typename = std::enable_if_t<std::is_integral<TypeInt>::value>>
     int print_ip(const TypeInt indata);
-    
+
     template <
         template <class...> class Vec,
-        class... Other
-        >
+        class... Other>
     int print_ip(const Vec<Other...> &indata);
 
-    // template <
-    //     template <class, class...> class Vec,
-    //     class Tvec,
-    //     class... Other,
-    //     std::enable_if_t< 
-    //     ! (std::is_same< Vec<Tvec>, std::vector<Tvec>>::value 
-    //     || std::is_same< Vec<Tvec>, std::list<Tvec>>::value), 
-    //     int > =0
-    //     >
-    // int print_ip(const Vec<Tvec, Other...> &indata);
-    
     template <
         template <class, class...> class Vec,
         class Tvec,
         class... Other,
-        std::enable_if_t< 
-        (std::is_same< Vec<Tvec>, std::vector<Tvec>>::value 
-        || std::is_same< Vec<Tvec>, std::list<Tvec>>::value), 
-        int > =0
-        >
+        std::enable_if_t<
+            (std::is_same<Vec<Tvec>, std::vector<Tvec>>::value 
+            || std::is_same<Vec<Tvec>, std::list<Tvec>>::value),
+            int> = 0>
     int print_ip(const Vec<Tvec, Other...> &indata);
 
     template <
         class Tvec,
         class Alloc>
     int print_ip(const std::basic_string<Tvec, Alloc> &indata);
- 
+
+    // шаблонная функция pr() для внутреннего использования
     template <class T1>
     void pr(T1 t1);
 

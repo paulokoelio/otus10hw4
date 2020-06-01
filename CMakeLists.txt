@@ -12,7 +12,7 @@ project(print_ip VERSION ${BUILD_VER}.${BUILD_SUBVER}.${BUILD_PATCH})
 
 add_subdirectory(include)
 add_subdirectory(src)
-# add_subdirectory(test)
+add_subdirectory(test)
 
-# enable_testing()
-# add_test(testfull "test/testall")
+enable_testing()
+add_test(testfull "test/testall")

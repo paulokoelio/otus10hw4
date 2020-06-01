@@ -1,4 +1,3 @@
-#include "praddr.h"
 #include "praddr_basefncl.h"
 
 namespace praddr
@@ -8,6 +7,5 @@ namespace praddr
     {
         std::cout << "type is not supported" << '\n';
     }
-
 
 } // namespace praddr
