@@ -1,3 +1,15 @@
+/**
+\file
+\brief Заголовочный файл с определениями шаблонных функций для tuple
+
+Заголовочный файл с определением функций print_ip() для данных типа tuple, 
+а также с определением универсальной вспомогательной функции 
+for_each(tuple , callback) производящей обход всех элементов tuple во время
+компиляции и обрабатывающей их функцией callback.
+Код функций для tuple основан на исходном коде представленном на сайте:
+http://artlang.net/post/c++11-obkhod-elementov-kortezhe-std-tuple/
+*/
+
 #ifndef MYLIB_PRINT_TUPLE_H_
 #define MYLIB_PRINT_TUPLE_H_
 
@@ -7,11 +19,9 @@
 #include <utility>
 #include <iostream>
 
-// исходный код функций для tuple основан на:
-// http://artlang.net/post/c++11-obkhod-elementov-kortezhe-std-tuple/
-
 namespace mylib
 {
+    /// Разделитель, выводимый между элементами tuple-я
     constexpr char delimiter = '.';
 
     static std::stringstream data;
@@ -54,6 +64,12 @@ namespace mylib
 
     // "Волшебный" for_each для обхода элементов кортежа (compile time!):
     //
+/**
+Шаблонная вспомогательная внутренняя функция обхода кортежа tuple
+с обработкой функцией callback (структура с перегруженным оператором () )
+\param[in] t кортеж (tuple) выводимый на печать
+\param[in] callback функция-структура в которой обрабатывается каждый элемент кортежа
+*/
     template <typename Callback, typename... Args>
     void for_each(std::tuple<Args...> &t, Callback callback)
     {
@@ -75,6 +91,11 @@ namespace mylib
         }
     };
 
+/**
+Шаблонная функция вывода на печать значения заданного кортежем
+(std::tuple) при условии совпадения всех типов данных входящих в кортеж
+\param[in] tuple_ кортеж с выводимыми значениями
+*/
     template <typename... Args>
     void print_ip(std::tuple<Args...> tuple_)
     {

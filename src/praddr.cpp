@@ -1,3 +1,10 @@
+/**
+\file
+\brief Примеры использования функций pint_ip()
+
+Приводятся примеры использования функции print_ip() 
+в соответствии с условиями ДЗ №4 
+*/
 #include <cassert>
 #include <exception>
 #include <iostream>
@@ -6,12 +13,7 @@
 #include <list>
 #include <tuple>
 
-#include "version.h"
-#include "praddr_basefncl.h"
-#include "mylib_print_tuple.h"
-
-using namespace praddr;
-using namespace mylib;
+#include "praddr.h"
 
 int main(int argc, char const *argv[])
 {
