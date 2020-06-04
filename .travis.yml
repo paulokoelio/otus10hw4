@@ -1,3 +1,4 @@
+os: linux
 dist: bionic
 addons:
   apt:
@@ -22,6 +23,6 @@ script:
 - cmake --build . --target package
 deploy:
   - provider: script
-    skip_cleanup: true
+    cleanup: true
     script: 
     - curl -T print_ip-1.0.$TRAVIS_BUILD_NUMBER-Linux.deb -upaulokoelio:$BINTRAY_API_KEY "https://api.bintray.com/content/paulokoelio/otus10hw4/otus10hw4/1.0.$TRAVIS_BUILD_NUMBER/print_ip-1.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=bionic;deb_component=main;deb_architecture=amd64;publish=1"
