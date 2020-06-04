@@ -7,6 +7,13 @@ addons:
     - doxygen
     - graphviz
 language: cpp
+before_script:
+- sudo apt-get update -qq
+- cd /usr/src/gtest
+- sudo cmake .
+- sudo make
+- sudo cp *.a /usr/lib
+- cd $TRAVIS_BUILD_DIR
 script:
 - doxygen Doxyfile
 - cmake .
